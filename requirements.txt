@@ -1,0 +1,6 @@
+flask==0.9
+flask-sqlalchemy
+flask-whooshalchemy
+flask-wtf
+flask-babel
+flup
