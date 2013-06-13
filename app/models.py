@@ -1,4 +1,4 @@
-from library import db
+from app import db
 
 
 book_author_assc_table = db.Table('book_author',
