@@ -3,7 +3,8 @@
 {% block title %}Author list{% endblock %}
 
 {% block content %}
+    <div><a class="btn" href="{{ url_for('edit_author') }}">Add author</a></div>
     {% for author in author_list %}
-        <div>{{ author }}</div>
+        <div><a href="{{ url_for('edit_author', id=author.id)}}">{{ author }}</a></div>
     {% endfor %}
 {% endblock %}

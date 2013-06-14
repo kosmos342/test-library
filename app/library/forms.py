@@ -1,23 +1,16 @@
-from flask.ext.wtf import Form, TextField, Required, Length, ValidationError
-from wtforms.ext.sqlalchemy.fields import QuerySelectMultipleField
-from wtforms.ext.sqlalchemy.validators import Unique
+from flask.ext.wtf import Form, Required
+from wtforms.ext.sqlalchemy.orm import model_form
 from app import db
 from .models import Author, Book
 
 
-class BookForm(Form):
-    title = TextField('title', validators=[
-        Required(),
-        Length(max=255),
-        Unique(db.session, Book, Book.title, 'Such book already exists')
-    ])
-    authors = QuerySelectMultipleField('authors', validators=[Required()],
-                                       query_factory=Author.query.all)
+BaseBookForm = model_form(Book, db_session=db.session, base_class=Form,
+                      field_args={'authors': {'validators': [Required()]}})
 
 
-class AuthorForm(Form):
-    name = TextField('name', validators = [
-        Required(),
-        Length(max=255),
-        Unique(db.session, Author, Author.name, 'Such author already exists')
-    ])
+class BookForm(BaseBookForm):
+    def __init__(self, *args, **kwargs):
+        super(BookForm, self).__init__(*args, **kwargs)
+
+
+AuthorForm = model_form(Author, db_session=db.session, base_class=Form)

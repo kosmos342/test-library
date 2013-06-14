@@ -1,7 +1,7 @@
-from flask import flash, render_template, redirect, request, url_for
+from flask import flash, render_template, redirect, url_for
 from app import app, db
-from .forms import BookForm, AuthorForm
-from .models import Book, Author
+from .forms import AuthorForm, BookForm
+from models import Book, Author
 
 
 @app.route('/')
@@ -11,16 +11,22 @@ def book_list():
 
 
 @app.route('/books/add/', methods=['GET', 'POST'])
-def add_book():
-    form = BookForm()
+@app.route('/books/<int:id>/', methods=['GET', 'POST'])
+def edit_book(id=None):
+    if id:
+        book = Book.query.get_or_404(id)
+    else:
+        book = Book('')
+    form = BookForm(obj=book)
     if form.validate_on_submit():
-        # can't save m2m for now
-        book = Book(form.data['title'])
-        db.session.add(book)
+        form.populate_obj(book)
+        if not id:
+            db.session.add(book)
         db.session.commit()
         flash('Book "{}" was added'.format(book.title))
         return redirect(url_for('book_list'))
-    return render_template('library/book_add.html', form=form)
+    return render_template('library/book_edit.html',
+                           form=form, book=book)
 
 
 @app.route('/authors/')
@@ -30,12 +36,22 @@ def author_list():
 
 
 @app.route('/authors/add/', methods=['GET', 'POST'])
-def add_author():
-    form = AuthorForm()
+@app.route('/authors/<int:id>/', methods=['GET', 'POST'])
+def edit_author(id=None):
+    if id:
+        author = Author.query.get_or_404(id)
+    else:
+        author = Author('')
+    form = AuthorForm(obj=author)
     if form.validate_on_submit():
-        a = Author(**form.data)
-        db.session.add(a)
+        form.populate_obj(author)
+        if not id:
+            db.session.add(author)
         db.session.commit()
-        flash('Author "{}" was added'.format(a.name))
+        if id:
+            flash('Author "{}" was saved'.format(author.name))
+        else:
+            flash('Author "{}" was added'.format(author.name))
         return redirect(url_for('author_list'))
-    return render_template('library/author_add.html', form=form)
+    return render_template('library/author_edit.html',
+                           form=form, author=author)

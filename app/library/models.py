@@ -10,7 +10,7 @@ book_author_assc_table = db.Table('book_author',
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), index=True, unique=True)
-    authors = db.relationship('Author', secondary=book_author_assc_table, lazy='dynamic',
+    authors = db.relationship('Author', secondary=book_author_assc_table,
                               backref=db.backref('books', lazy='dynamic'))
 
     def __init__(self, title, authors=[]):
