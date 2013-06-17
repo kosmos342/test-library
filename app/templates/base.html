@@ -42,3 +42,8 @@
       {% block content %}Hello world{% endblock %}
     </div> <!-- /container -->
 {% endblock %}
+
+{% block bootstrap_js_bottom %}
+  {{ super() }}
+  {% block extra_js %}{% endblock %}
+{% endblock %}

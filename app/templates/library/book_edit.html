@@ -2,6 +2,33 @@
 
 {% block title %}{% if book.id %}Edit book{% else %}Add book{% endif %}{% endblock %}
 
+{% block style %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='multiselect/css/multi-select.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{{ url_for('static', filename='js/jquery.quicksearch.js') }}"></script>
+  <script src="{{ url_for('static', filename='multiselect/js/jquery.multi-select.js') }}"></script>
+  <script>
+    $(function(){
+      $('#{{ form.authors.id }}').multiSelect({
+        selectableHeader: "<input type='text' class='span2 search' placeholder='search'>",
+        afterInit: function(container) {
+          $('.search', container).quicksearch($('.ms-elem-selectable', container)).on('keydown', function(e){
+            if (e.keyCode == 40){
+              $(this).trigger('focusout');
+              $('#{{ form.authors.id }}').focus();
+              return false;
+            }
+          });
+        }
+      });
+    })
+  </script>
+{% endblock %}
+
+
 {% block content %}
     <h1>{% if book.id %}Edit book{% else %}Add book{% endif %}</h1>
 

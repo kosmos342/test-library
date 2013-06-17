@@ -113,6 +113,7 @@ def _search_query(query, q):
                    Author.name.contains(q))).\
         distinct()
 
+
 @app.route('/search/', defaults={'page': 1})
 @app.route('/search/page/<int:page>/')
 def search(page):
