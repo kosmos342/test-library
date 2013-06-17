@@ -1,3 +1,4 @@
+from flask import url_for
 from app import db
 
 
@@ -23,6 +24,9 @@ class Book(db.Model):
     def __unicode__(self):
         return '{} {}'.format(self.title, self.authors)
 
+    def get_absolute_url(self):
+        return url_for('book_detail', id=self.id)
+
 
 class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,3 +40,6 @@ class Author(db.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return url_for('author_detail', id=self.id)
