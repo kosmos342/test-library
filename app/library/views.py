@@ -1,4 +1,5 @@
-from flask import flash, render_template, redirect, url_for
+from flask import flash, render_template, redirect, url_for, request
+from sqlalchemy import or_
 from app import app, db
 from .forms import AuthorForm, BookForm
 from models import Book, Author
@@ -61,3 +62,24 @@ def edit_author(id=None):
         return redirect(url_for('author_list'))
     return render_template('library/author_edit.html',
                            form=form, author=author)
+
+
+def _search_query(query, q):
+    return query.outerjoin(Book.authors).\
+        filter(or_(Book.title.contains(q),
+                   Author.name.contains(q))).\
+        distinct()
+
+@app.route('/search/', defaults={'page': 1})
+@app.route('/search/page/<int:page>/')
+def search(page):
+    book_q = Book.query
+    q = request.values.get('q', '')
+    if q:
+        book_q = _search_query(book_q, q)
+    book_q = book_q
+    paginator = book_q.paginate(page)
+    return render_template('library/search.html',
+                           q=q,
+                           book_list=paginator.items,
+                           paginator=paginator)

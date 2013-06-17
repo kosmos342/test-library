@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Author list{% endblock %}
+
+{% block content %}
+    <h1>Search: {{ q }}</h1>
+    {% for book in book_list %}
+        <div><a href="{{ url_for('edit_book', id=book.id)}}">{{ book }}</a></div>
+    {% else %}
+        <h3>Nothing found</h3>
+    {% endfor %}
+
+    {{ pagination.paginate(paginator, 'search') }}
+{% endblock %}
