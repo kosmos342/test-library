@@ -4,10 +4,13 @@ from .forms import AuthorForm, BookForm
 from models import Book, Author
 
 
-@app.route('/')
-def book_list():
-    book_list = Book.query.all()
-    return render_template('library/book_list.html', book_list=book_list)
+@app.route('/', defaults={'page': 1})
+@app.route('/page/<int:page>/')
+def book_list(page):
+    paginator = Book.query.paginate(page)
+    return render_template('library/book_list.html',
+                           book_list=paginator.items,
+                           paginator=paginator)
 
 
 @app.route('/books/add/', methods=['GET', 'POST'])
@@ -29,10 +32,13 @@ def edit_book(id=None):
                            form=form, book=book)
 
 
-@app.route('/authors/')
-def author_list():
-    author_list = Author.query.all()
-    return render_template('library/author_list.html', author_list=author_list)
+@app.route('/authors/', defaults={'page': 1})
+@app.route('/authors/page/<int:page>/')
+def author_list(page):
+    paginator = Author.query.paginate(page)
+    return render_template('library/author_list.html',
+                           author_list=paginator.items,
+                           paginator=paginator)
 
 
 @app.route('/authors/add/', methods=['GET', 'POST'])

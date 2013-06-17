@@ -1,0 +1,31 @@
+{% macro paginate(paginator, url_name) %}
+{% if paginator.total > 1 %}
+<div class="pagination">
+  <ul>
+    <li>
+      {% if paginator.has_prev %}
+        <a href="{{ url_for(url_name, page=paginator.prev_num) }}">Prev</a>
+      {% else %}
+        <span>Prev</span>
+      {% endif %}
+    </li>
+    {% for i in paginator.iter_pages() %}
+      <li{% if i == paginator.page %} class="active"{% endif %}>
+        {% if i %}
+          <a href="{{ url_for(url_name, page=i) }}">{{ i }}</a>
+        {% else %}
+          <span>...</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+    <li>
+      {% if paginator.has_next %}
+        <a href="{{ url_for(url_name, page=paginator.next_num) }}">Next</a>
+      {% else %}
+        <span>Next</span>
+      {% endif %}
+    </li>
+  </ul>
+</div>
+{% endif %}
+{% endmacro %}

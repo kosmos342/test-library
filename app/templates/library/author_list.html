@@ -7,4 +7,6 @@
     {% for author in author_list %}
         <div><a href="{{ url_for('edit_author', id=author.id)}}">{{ author }}</a></div>
     {% endfor %}
+
+    {{ pagination.paginate(paginator, 'author_list') }}
 {% endblock %}
