@@ -35,10 +35,10 @@ def edit_book(id=None):
             db.session.add(book)
         db.session.commit()
         if id:
-            flash('Book "{}" was changed'.format(book.title))
+            flash('Book "{}" was changed'.format(book.title), 'success')
             return redirect(url_for('book_detail', id=id))
         else:
-            flash('Book "{}" was added'.format(book.title))
+            flash('Book "{}" was added'.format(book.title), 'success')
             return redirect(url_for('book_list'))
     return render_template('library/book_edit.html',
                            form=form, book=book)
@@ -50,7 +50,7 @@ def delete_book(id):
     if request.method == 'POST':
         db.session.delete(book)
         db.session.commit()
-        flash('Book "{}" was successfully deleted.'.format(book.title))
+        flash('Book "{}" was successfully deleted.'.format(book.title), 'success')
         return redirect(url_for('book_list'))
     return render_template('library/book_delete.html',
                            book=book)
@@ -86,10 +86,10 @@ def edit_author(id=None):
             db.session.add(author)
         db.session.commit()
         if id:
-            flash('Author "{}" was changed'.format(author.name))
+            flash('Author "{}" was changed'.format(author.name), 'success')
             return redirect(url_for('author_detail', id=author.id))
         else:
-            flash('Author "{}" was added'.format(author.name))
+            flash('Author "{}" was added'.format(author.name), 'success')
             return redirect(url_for('author_list'))
     return render_template('library/author_edit.html',
                            form=form, author=author)
@@ -101,7 +101,7 @@ def delete_author(id):
     if request.method == 'POST':
         db.session.delete(author)
         db.session.commit()
-        flash('Author "{}" was successfully deleted.'.format(author.name))
+        flash('Author "{}" was successfully deleted.'.format(author.name), 'success')
         return redirect(url_for('author_list'))
     return render_template('library/author_delete.html',
                            author=author)
