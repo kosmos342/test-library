@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% set menu = 'books' %}
+
 {% block title %}{% if book.id %}Edit book{% else %}Add book{% endif %}{% endblock %}
 
 {% block style %}

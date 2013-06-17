@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% set menu = 'authors' %}
+
 {% block title %}{% if author.id %}Edit author{% else %}Add author{% endif %}{% endblock %}
 
 {% block content %}
