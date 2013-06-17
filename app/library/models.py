@@ -22,7 +22,7 @@ class Book(db.Model):
         return '<Book %r>' % self.title
 
     def __unicode__(self):
-        return '{} {}'.format(self.title, self.authors)
+        return '{}'.format(self.title)
 
     def get_absolute_url(self):
         return url_for('book_detail', id=self.id)

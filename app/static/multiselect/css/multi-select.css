@@ -62,6 +62,10 @@
   overflow-y: auto;
 }
 
+.ms-container .ms-selection ul.ms-list{
+  height: 230px;
+}
+
 .ms-container .ms-optgroup-label{
   margin: 0;
   padding: 5px 0px 0px 5px;
@@ -90,4 +94,8 @@
   background-color: #eee;
   color: #aaa;
   cursor: text;
+}
+
+.ms-container .search{
+  width: 148px;
 }

@@ -21,7 +21,7 @@
   <script>
     $(function(){
       $('#{{ form.authors.id }}').multiSelect({
-        selectableHeader: "<input type='text' class='span2 search' placeholder='search'>",
+        selectableHeader: "<input type='text' class='search' placeholder='search'>",
         afterInit: function(container) {
           $('.search', container).quicksearch($('.ms-elem-selectable', container)).on('keydown', function(e){
             if (e.keyCode == 40){

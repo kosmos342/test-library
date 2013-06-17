@@ -2,6 +2,11 @@
 {% import "bootstrap_wtf.html" as wtf %}
 {% import "_pagination.html" as pagination %}
 
+{% block style %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body_content %}
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -20,7 +25,7 @@
 
             <form class="navbar-form pull-right" action="{{ url_for('search') }}">
               <input class="span2" type="text" placeholder="Search" name="q" value="{{ q }}">
-              <button type="submit" class="btn">Search</button>
+              <button type="submit" class="btn"><i class="icon-search"></i> Search</button>
             </form>
           </div><!--/.nav-collapse -->
         </div>

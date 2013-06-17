@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block content %}
-    <div><a class="btn" href="{{ url_for('edit_author') }}">Add author</a></div>
+    <div><a class="btn" href="{{ url_for('edit_author') }}"><i class="icon-plus"></i> Add author</a></div>
     {% for author in author_list %}
-        <div><a href="{{ author.get_absolute_url() }}">{{ author.name }}</a></div>
+        <div class="author"><a href="{{ author.get_absolute_url() }}">{{ author.name }}</a></div>
     {% endfor %}
 
     {{ pagination.paginate(paginator, 'author_list') }}
