@@ -1,7 +1,8 @@
-flask==0.10
-flask-sqlalchemy==0.16
-flask-whooshalchemy
+flask==0.10.1
+flask-sqlalchemy
 flask-wtf
 flask-babel
 flask-bootstrap
 flup
+loremipsum
+names
