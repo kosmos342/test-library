@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Deleting {{ author.name }}{% endblock %}
+
+{% block content %}
+    <h3>Are you really want to delete "{{ author.name }}"</h3>
+    <form method="post">
+        <input type="submit" class="btn" value="Delete" />
+    </form>
+{% endblock %}

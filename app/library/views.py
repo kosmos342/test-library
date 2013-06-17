@@ -1,6 +1,5 @@
 from flask import flash, render_template, redirect, url_for, request
 from sqlalchemy import or_
-from werkzeug.wrappers import BaseResponse
 from app import app, db
 from .forms import AuthorForm, BookForm
 from models import Book, Author
@@ -45,6 +44,18 @@ def edit_book(id=None):
                            form=form, book=book)
 
 
+@app.route('/books/delete/<int:id>/', methods=['GET', 'POST'])
+def delete_book(id):
+    book = Book.query.get_or_404(id)
+    if request.method == 'POST':
+        db.session.delete(book)
+        db.session.commit()
+        flash('Book "{}" was successfully deleted.'.format(book.title))
+        return redirect(url_for('book_list'))
+    return render_template('library/book_delete.html',
+                           book=book)
+
+
 @app.route('/authors/', defaults={'page': 1})
 @app.route('/authors/page/<int:page>/')
 def author_list(page):
@@ -86,10 +97,14 @@ def edit_author(id=None):
 
 @app.route('/authors/delete/<int:id>/', methods=['GET', 'POST'])
 def delete_author(id):
+    author = Author.query.get_or_404(id)
     if request.method == 'POST':
-        Author.query.filter(id=id).delete()
-        return BaseResponse(status=200)
-    return render_template('library/author_delete.html')
+        db.session.delete(author)
+        db.session.commit()
+        flash('Author "{}" was successfully deleted.'.format(author.name))
+        return redirect(url_for('author_list'))
+    return render_template('library/author_delete.html',
+                           author=author)
 
 
 def _search_query(query, q):

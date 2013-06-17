@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Deleting {{ book.title }}{% endblock %}
+
+{% block content %}
+    <h3>Are you really want to delete "{{ book.title }}"</h3>
+    <form method="post">
+        <input type="submit" class="btn" value="Delete" />
+    </form>
+{% endblock %}
