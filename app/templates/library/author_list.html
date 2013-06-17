@@ -4,6 +4,10 @@
 
 {% block title %}Author list{% endblock %}
 
+{% block bredcrumbs %}
+  <li class="active">Authors</li>
+{% endblock %}
+
 {% block content %}
     <div><a class="btn" href="{{ url_for('edit_author') }}">Add author</a></div>
     {% for author in author_list %}

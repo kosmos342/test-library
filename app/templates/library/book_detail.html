@@ -4,6 +4,11 @@
 
 {% block title %}{{ book.title }}{% endblock %}
 
+{% block bredcrumbs %}
+  <li><a href="{{ url_for('book_list') }}">Books</a> <span class="divider">/</span></li>
+  <li class="active">{{ book.title }}</li>
+{% endblock %}
+
 {% block content %}
     <h2>{{ book.title }}</h2>
     <div>

@@ -4,6 +4,10 @@
 
 {% block title %}Book list{% endblock %}
 
+{% block bredcrumbs %}
+  <li class="active">Books</li>
+{% endblock %}
+
 {% block content %}
     <div><a class="btn" href="{{ url_for('edit_book') }}">Add book</a></div>
     {% for book in book_list %}

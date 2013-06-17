@@ -4,6 +4,11 @@
 
 {% block title %}{{ author.name }}{% endblock %}
 
+{% block bredcrumbs %}
+  <li><a href="{{ url_for('author_list') }}">Authors</a> <span class="divider">/</span></li>
+  <li class="active">{{ author.name }}</li>
+{% endblock %}
+
 {% block content %}
     <h2>{{ author.name }}</h2>
      <div>

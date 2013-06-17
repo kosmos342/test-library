@@ -4,6 +4,12 @@
 
 {% block title %}{% if book.id %}Edit book{% else %}Add book{% endif %}{% endblock %}
 
+{% block bredcrumbs %}
+  <li><a href="{{ url_for('book_list') }}">Books</a> <span class="divider">/</span></li>
+  <li><a href="{{ book.get_absolute_url() }}">{{ book.title }}</a> <span class="divider">/</span></li>
+  <li class="active">Edit</li>
+{% endblock %}
+
 {% block style %}
   {{ super() }}
   <link href="{{ url_for('static', filename='multiselect/css/multi-select.css') }}" rel="stylesheet">

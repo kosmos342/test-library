@@ -2,7 +2,13 @@
 
 {% set menu = 'books' %}
 
-{% block title %}Author list{% endblock %}
+{% block title %}Search{% endblock %}
+
+{% block bredcrumbs %}
+  <li><a href="{{ url_for('book_list') }}">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ url_for('book_list') }}">Books</a> <span class="divider">/</span></li>
+  <li class="active">Search: {{ q }}</li>
+{% endblock %}
 
 {% block content %}
     <h1>Search: {{ q }}</h1>

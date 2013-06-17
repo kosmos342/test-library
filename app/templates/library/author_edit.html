@@ -4,6 +4,12 @@
 
 {% block title %}{% if author.id %}Edit author{% else %}Add author{% endif %}{% endblock %}
 
+{% block bredcrumbs %}
+  <li><a href="{{ url_for('author_list') }}">Authors</a> <span class="divider">/</span></li>
+  <li><a href="{{ author.get_absolute_url() }}">{{ author.name }}</a> <span class="divider">/</span></li>
+  <li class="active">Edit</li>
+{% endblock %}
+
 {% block content %}
     <h1>{% if author.id %}Edit author{% else %}Add author{% endif %}</h1>
 
